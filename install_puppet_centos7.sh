@@ -4,6 +4,7 @@
 set -e
 
 REPO_URL="http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm"
+PUPPET_HOME=/etc/puppet
 
 if [ "$EUID" -ne "0" ]; then
   echo "This script must be run as root." >&2
@@ -29,5 +30,12 @@ rpm -i "${repo_path}" >/dev/null
 # Install Puppet...
 echo "Installing puppet"
 yum install -y puppet > /dev/null
+
+# Install git...
+echo "Installing git"
+yum install -y git > /dev/null
+
+git clone https://github.com/LBanzato/soa_cloud.git
+cp -R ./soa_cloud/puppet/* $PUPPET_HOME
 
 echo "Puppet installed!"
