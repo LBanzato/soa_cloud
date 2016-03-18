@@ -3,7 +3,7 @@
 
 set -e
 
-REPO_URL="http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm"
+REPO_URL="https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm"
 PUPPET_HOME=/etc/puppet
 
 if [ "$EUID" -ne "0" ]; then
@@ -29,9 +29,9 @@ else
   rpm -i "${repo_path}" >/dev/null
 
   # Install Puppet...
-  echo "Installing puppet"
-  yum install -y puppet > /dev/null
-  echo "Puppet installed!"
+  echo "Installing puppetserver"
+  yum install -y puppetserver > /dev/null
+  echo "puppetserver installed!"
 fi
 
 if which git > /dev/null 2>&1; then
@@ -46,3 +46,5 @@ echo "Cloning git repository..."
 git clone https://github.com/LBanzato/soa_cloud.git
 cp -R ./soa_cloud/puppet/* $PUPPET_HOME
 echo "Done!"
+
+#systemctl start puppetserver
