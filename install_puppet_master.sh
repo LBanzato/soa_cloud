@@ -46,7 +46,7 @@ echo "Cloning git repository..."
 git clone https://github.com/LBanzato/soa_cloud.git
 mv ./soa_cloud/puppet/hieradata/puppet_master ./soa_cloud/puppet/hieradata/$HOSTNAME
 cp ./soa_cloud/puppet/hiera.yaml $PUPPET_HOME
-cp -R ./soa_cloud/puppet/hieradata $PUPPET_HOME/environments/$ENVIRONMENT/hieradata
+cp -R ./soa_cloud/puppet/hieradata $PUPPET_HOME/environments/$ENVIRONMENT/
 echo "HOSTNAME=$HOSTNAME" >> /etc/sysconfig/network
 systemctl restart network
 hostnamectl set-hostname $HOSTNAME
