@@ -3,8 +3,7 @@
 
 REPO_URL="https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm"
 PUPPET_HOME=/etc/puppetlabs/code
-DOMAIN=mydomain.com
-HOSTNAME=puppet.$DOMAIN
+HOSTNAME=puppet
 ENVIRONMENT=production
 
 if [ "$EUID" -ne "0" ]; then
