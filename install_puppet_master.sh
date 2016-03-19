@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
-# This bootstraps Puppet on CentOS 7.x
-
-set -e
+# This bootstraps Puppet Master on CentOS 7.x
 
 REPO_URL="https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm"
-PUPPET_HOME=/etc/puppet
+PUPPET_HOME=/etc/puppetlabs/code
+DOMAIN=mydomain.com
+HOSTNAME=puppet.$DOMAIN
+ENVIRONMENT=production
 
 if [ "$EUID" -ne "0" ]; then
   echo "This script must be run as root." >&2
@@ -44,7 +45,11 @@ fi
 
 echo "Cloning git repository..."
 git clone https://github.com/LBanzato/soa_cloud.git
-cp -R ./soa_cloud/puppet/* $PUPPET_HOME
+mv ./soa_cloud/puppet/hieradata/puppet_master ./soa_cloud/puppet/hieradata/$HOSTNAME
+cp ./soa_cloud/puppet/hiera.yaml $PUPPET_HOME
+cp -R ./soa_cloud/puppet/hieradata $PUPPET_HOME/environments/$ENVIRONMENT/hieradata
+echo "HOSTNAME=$HOSTNAME" >> /etc/sysconfig/network
+systemctl restart network
 echo "Done!"
 
 #systemctl start puppetserver
