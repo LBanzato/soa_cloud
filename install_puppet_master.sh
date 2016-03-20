@@ -48,8 +48,9 @@ mv ./soa_cloud/puppet/hieradata/puppet_master ./soa_cloud/puppet/hieradata/$HOST
 cp ./soa_cloud/puppet/hiera.yaml $PUPPET_HOME
 cp -R ./soa_cloud/puppet/hieradata $PUPPET_HOME/environments/$ENVIRONMENT/
 echo "HOSTNAME=$HOSTNAME" >> /etc/sysconfig/network
-systemctl restart network
+echo "127.0.0.127    puppet" >> /etc/hosts
 hostnamectl set-hostname $HOSTNAME
+systemctl restart network
 echo "Done!"
 
 #systemctl start puppetserver
