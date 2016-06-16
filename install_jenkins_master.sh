@@ -49,4 +49,6 @@ git clone https://github.com/LBanzato/soa_cloud.git
 export FACTER_new_hostname=$HOSTNAME
 $PUPPET_BIN apply ./soa_cloud/puppet/init_scripts/set_hostname.pp
 
+/opt/puppetlabs/bin/puppet resource service puppet ensure=running enable=true
+
 echo "Done!"
