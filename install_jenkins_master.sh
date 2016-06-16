@@ -47,6 +47,6 @@ echo "Cloning git repository..."
 git clone https://github.com/LBanzato/soa_cloud.git
 
 export FACTER_new_hostname=$HOSTNAME
-$PUPPET_BIN ./soa_cloud/puppet/init_scripts/set_hostname.pp
+$PUPPET_BIN apply ./soa_cloud/puppet/init_scripts/set_hostname.pp
 
 echo "Done!"
