@@ -3,8 +3,7 @@
 
 REPO_URL="https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm"
 PUPPET_HOME=/etc/puppetlabs/code
-PUPPET_BIN=/opt/puppetlabs/bin/puppet
-HOSTNAME=puppet
+HOSTNAME=jenkins
 ENVIRONMENT=production
 
 if [ "$EUID" -ne "0" ]; then
@@ -27,12 +26,12 @@ else
   echo "Configuring PuppetLabs repo..."
   repo_path=$(mktemp)
   wget --output-document="${repo_path}" "${REPO_URL}" 2>/dev/null
-  rpm -i "${repo_path}" >/dev/null
+  rpm -i "${repo_path}"
 
   # Install Puppet...
   echo "Installing puppetserver"
-  yum install -y puppetserver > /dev/null
-  echo "puppetserver installed!"
+  yum install -y puppet-agent
+  echo "puppet-agent installed!"
 fi
 
 if which git > /dev/null 2>&1; then
@@ -40,7 +39,7 @@ if which git > /dev/null 2>&1; then
 else
   # Install git...
   echo "Installing git"
-  yum install -y git > /dev/null
+  yum install -y git
 fi
 
 echo "Cloning git repository..."
@@ -49,9 +48,4 @@ git clone https://github.com/LBanzato/soa_cloud.git
 export FACTER_new_hostname=$HOSTNAME
 $PUPPET_BIN ./soa_cloud/puppet/init_scripts/set_hostname.pp
 
-mv ./soa_cloud/puppet/hieradata/puppet_master ./soa_cloud/puppet/hieradata/$HOSTNAME
-cp ./soa_cloud/puppet/hiera.yaml $PUPPET_HOME
-cp -R ./soa_cloud/puppet/hieradata $PUPPET_HOME/environments/$ENVIRONMENT/
-
 echo "Done!"
-
