@@ -3,6 +3,7 @@
 
 REPO_URL="https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm"
 PUPPET_HOME=/etc/puppetlabs/code
+PUPPET_BIN=/opt/puppetlabs/bin/puppet
 HOSTNAME=jenkins
 ENVIRONMENT=production
 
