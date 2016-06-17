@@ -47,15 +47,15 @@ echo "Cloning git repository..."
 git clone https://github.com/LBanzato/soa_cloud.git
 
 export FACTER_new_hostname=$HOSTNAME
-$PUPPET_BIN ./soa_cloud/puppet/init_scripts/set_hostname.pp
+$PUPPET_BIN apply ./soa_cloud/puppet/init_scripts/set_hostname.pp
 
-mv ./soa_cloud/puppet/hieradata/puppet_master ./soa_cloud/puppet/hieradata/$HOSTNAME
+mv ./soa_cloud/puppet/hieradata/$HOSTNAME ./soa_cloud/puppet/hieradata/$HOSTNAME
 cp ./soa_cloud/puppet/hiera.yaml $PUPPET_HOME
 cp -R ./soa_cloud/puppet/hieradata $PUPPET_HOME/environments/$ENVIRONMENT/
 
 /opt/puppetlabs/bin/puppet module install puppetlabs-firewall
 
-$PUPPET_BIN ./soa_cloud/puppet/init_scripts/puppetserver.pp
+$PUPPET_BIN apply ./soa_cloud/puppet/init_scripts/puppetserver.pp
 
 echo "Done!"
 
