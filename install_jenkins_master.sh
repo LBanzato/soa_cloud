@@ -17,7 +17,7 @@ if which wget > /dev/null 2>&1; then
   echo "wget already installed, moving on..."
 else
   echo "Installing wget..."
-  yum install -y wget > /dev/null
+  yum install -y wget
 fi
 
 if which puppet > /dev/null 2>&1; then
