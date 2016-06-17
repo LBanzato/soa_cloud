@@ -27,8 +27,8 @@ service { 'puppetserver':
     enable => true,
 }
 
-file { "$confdir/autosign.conf":
+file { "$::confdir/autosign.conf":
     ensure  => present,
-    content => "jenkins.localdomain\n",  
+    content => "jenkins.soacloud.com\n",  
 }
 
