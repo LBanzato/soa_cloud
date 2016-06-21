@@ -22,9 +22,17 @@ firewall { '100 puppet master port access':
     require => Service['iptables'],
 }
 
+augeas { '/etc/sysconfig/puppetserver':
+    context => '/files/etc/sysconfig/puppetserver',
+    changes => [
+        'set JAVA_ARGS \'"-Xms512m -Xmx512m"\'',
+    ]
+}
+
 service { 'puppetserver':
-    ensure => running,
-    enable => true,
+    ensure  => running,
+    enable  => true,
+    require => Augeas['/etc/sysconfig/puppetserver'],
 }
 
 file { "$::confdir/autosign.conf":
