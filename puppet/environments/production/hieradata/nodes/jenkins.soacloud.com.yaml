@@ -1,0 +1,6 @@
+# jenkins.soacloud.com.yaml
+---
+
+classes: 
+  - role::jenkins::master
+

@@ -54,6 +54,7 @@ cp ./soa_cloud/puppet/hiera.yaml $PUPPET_HOME
 cp -R ./soa_cloud/puppet/hieradata $PUPPET_HOME/environments/$ENVIRONMENT/
 
 /opt/puppetlabs/bin/puppet module install puppetlabs-firewall
+/opt/puppetlabs/bin/puppet module install puppetlabs-stdlib
 
 $PUPPET_BIN apply ./soa_cloud/puppet/init_scripts/puppetserver.pp
 
